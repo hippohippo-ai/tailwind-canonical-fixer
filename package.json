@@ -2,7 +2,11 @@
   "name": "tailwind-canonical-fixer",
   "displayName": "Tailwind Canonical Fixer",
   "description": "Automatically fix Tailwind CSS v4 canonical class suggestions.",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hippohippo-ai/tailwind-canonical-fixer.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -10,15 +14,16 @@
     "Formatters",
     "Linters"
   ],
-  "activationEvents": [
-    "onStartupFinished"
-  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "tailwindCanonicalFixer.fixCurrentFile",
-        "title": "Tailwind: Fix Canonical Classes"
+        "title": "Tailwind: Fix Canonical Classes(Current File)"
+      },
+      {
+        "command": "tailwindCanonicalFixer.fixWorkspace",
+        "title": "Tailwind: Fix Canonical Classes(Workspace)"
       }
     ],
     "configuration": {
@@ -37,13 +42,15 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
   },
+  "dependencies": {
+    "@babel/parser": "^7.23.0",
+    "@babel/traverse": "^7.23.0",
+    "@babel/types": "^7.23.0"
+  },
   "devDependencies": {
-    "@babel/parser": "^7.29.7",
-    "@babel/traverse": "^7.29.7",
-    "@babel/types": "^7.29.7",
-    "@types/babel__traverse": "^7.28.0",
-    "@types/node": "^26.1.2",
+    "@types/babel__traverse": "^7.20.0",
+    "@types/node": "^20.0.0",
     "@types/vscode": "^1.85.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.0.0"
   }
 }
