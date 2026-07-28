@@ -1,0 +1,49 @@
+{
+  "name": "tailwind-canonical-fixer",
+  "displayName": "Tailwind Canonical Fixer",
+  "description": "Automatically fix Tailwind CSS v4 canonical class suggestions.",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Formatters",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "tailwindCanonicalFixer.fixCurrentFile",
+        "title": "Tailwind: Fix Canonical Classes"
+      }
+    ],
+    "configuration": {
+      "title": "Tailwind Canonical Fixer",
+      "properties": {
+        "tailwindCanonicalFixer.formatOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically canonicalize Tailwind classes on save."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@babel/parser": "^7.29.7",
+    "@babel/traverse": "^7.29.7",
+    "@babel/types": "^7.29.7",
+    "@types/babel__traverse": "^7.28.0",
+    "@types/node": "^26.1.2",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^7.0.2"
+  }
+}
