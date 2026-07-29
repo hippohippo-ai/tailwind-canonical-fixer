@@ -40,8 +40,13 @@ export async function fixCurrentFile(
         const workspaceEdit = new vscode.WorkspaceEdit();
         workspaceEdit.set(document.uri, vscodeEdits);
         
-        await vscode.workspace.applyEdit(workspaceEdit);
-        vscode.window.showInformationMessage(`✓ ${edits.length} classes canonicalized.`);
+        const applied = await vscode.workspace.applyEdit(workspaceEdit);
+        if (applied) {
+            await document.save();
+            vscode.window.showInformationMessage(`✓ ${edits.length} classes canonicalized.`);
+        } else {
+            vscode.window.showWarningMessage('应用编辑失败,文档可能已被其他操作修改。');
+        }
         return [];
     }
 }

@@ -18,6 +18,7 @@ export async function fixWorkspace(engine: Canonicalizer) {
     let totalFilesUpdated = 0;
     let totalClassesFixed = 0;
     const workspaceEdit = new vscode.WorkspaceEdit();
+    const modifiedFiles = new Set<string>();
 
     // 3. 弹窗显示进度条进行批量修复
     await vscode.window.withProgress({
@@ -38,6 +39,7 @@ export async function fixWorkspace(engine: Canonicalizer) {
                 if (edits.length > 0) {
                     totalFilesUpdated++;
                     totalClassesFixed += edits.length;
+                    modifiedFiles.add(file.fsPath);
 
                     // 收集所有修改
                     edits.forEach(edit => {
@@ -56,8 +58,21 @@ export async function fixWorkspace(engine: Canonicalizer) {
 
         // 4. 批量一次性应用所有文件的修改
         if (totalClassesFixed > 0) {
-            await vscode.workspace.applyEdit(workspaceEdit);
-            vscode.window.showInformationMessage(`✓ Fixed ${totalClassesFixed} classes across ${totalFilesUpdated} files!`);
+            const applied = await vscode.workspace.applyEdit(workspaceEdit);
+            if (applied) {
+                // 逐个存盘,确保 Git Changes 面板能感知到改动
+                for (const fsPath of modifiedFiles) {
+                    try {
+                        const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(fsPath));
+                        await doc.save();
+                    } catch (err) {
+                        console.error(`Failed to save ${fsPath}:`, err);
+                    }
+                }
+                vscode.window.showInformationMessage(`✓ Fixed ${totalClassesFixed} classes across ${totalFilesUpdated} files!`);
+            } else {
+                vscode.window.showWarningMessage('应用编辑失败,部分文件可能已被其他操作修改。');
+            }
         } else {
             vscode.window.showInformationMessage('✓ All Tailwind classes in workspace are already canonical!');
         }

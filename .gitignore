@@ -4,3 +4,5 @@ out/
 .vscode-test/
 .DS_Store
 *.log
+project_tail.txt
+create_bundle.py
