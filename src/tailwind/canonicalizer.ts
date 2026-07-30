@@ -2,7 +2,6 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-// Tailwind CSS å†…ç½®/é€šç”¨è§„èŒƒç±»æ˜ å°„è¡¨
 const STATIC_CANONICAL_MAP: Record<string, string> = {
     'break-words': 'wrap-break-word',
     'overflow-ellipsis': 'text-ellipsis',
@@ -13,9 +12,32 @@ const STATIC_CANONICAL_MAP: Record<string, string> = {
     'flex-shrink-0': 'shrink-0',
     'decoration-slice': 'box-decoration-slice',
     'decoration-clone': 'box-decoration-clone',
+    'bg-gradient-to-t': 'bg-linear-to-t',
+    'bg-gradient-to-tr': 'bg-linear-to-tr',
+    'bg-gradient-to-r': 'bg-linear-to-r',
+    'bg-gradient-to-br': 'bg-linear-to-br',
+    'bg-gradient-to-b': 'bg-linear-to-b',
+    'bg-gradient-to-bl': 'bg-linear-to-bl',
+    'bg-gradient-to-l': 'bg-linear-to-l',
+    'bg-gradient-to-tl': 'bg-linear-to-tl',
+    
+    // shadow / blur / rounded 整体改名(v4 把整套 scale 平移了一格)
+    'shadow-sm': 'shadow-xs',
+    'shadow': 'shadow-sm',
+    'drop-shadow-sm': 'drop-shadow-xs',
+    'drop-shadow': 'drop-shadow-sm',
+    'blur-sm': 'blur-xs',
+    'blur': 'blur-sm',
+    'backdrop-blur-sm': 'backdrop-blur-xs',
+    'backdrop-blur': 'backdrop-blur-sm',
+    'rounded-sm': 'rounded-xs',
+    'rounded': 'rounded-sm',
+
+    // outline / ring
+    'outline-none': 'outline-hidden',
+    'ring': 'ring-3',
 };
 
-// Tailwind å®˜æ–¹é»˜è®¤æ ‡å‡†é˜¶æ¢¯ï¼ˆç™½åå•ï¼šè¿™äº›æ ‡å‡†ç±»åä¸åº”è¯¥è¢«è‡ªåŠ¨æ›¿æ¢ä¸ºé¡¹ç›®è‡ªå®šä¹‰è¯­ä¹‰åï¼‰
 const DEFAULT_TAILWIND_SCALES: Record<string, Set<string>> = {
     z: new Set(['0', '10', '20', '30', '40', '50', 'auto']),
     opacity: new Set(['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '65', '70', '75', '80', '85', '90', '95', '100']),
@@ -189,12 +211,10 @@ export class Canonicalizer {
     }
 
     private canonicalizeUtility(utility: string, extraMap?: Record<string, string>): string {
-        // 1. ä¼˜å…ˆé‡‡ç”¨é’ˆå¯¹æ€§ Diagnostic ä¼ å…¥çš„ç²¾å‡†æ˜ å°„ (ä¾‹å¦‚ z-9999 -> z-dialog)
         if (extraMap && extraMap[utility]) {
             return extraMap[utility];
         }
 
-        // 2. æŸ¥å†…ç½®é™æ€è§„èŒƒè¡¨ (ä¾‹å¦‚ break-words -> wrap-break-word)
         if (STATIC_CANONICAL_MAP[utility]) {
             return STATIC_CANONICAL_MAP[utility];
         }

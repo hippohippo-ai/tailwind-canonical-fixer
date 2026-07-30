@@ -5,6 +5,22 @@ Automatic fixing of Tailwind CSS v4 canonical class suggestions inside VS Code.
 ![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
+## What this is for
+
+**This extension does not fix syntax errors or bugs in your code.** It exists to clear the "can be written as..." canonical-class warnings that the Tailwind CSS IntelliSense extension shows in the editor (e.g. `bg-gradient-to-r` can be written as `bg-linear-to-r`).
+
+These warnings aren't errors — the old class names still work exactly as before. They're just outdated spellings that Tailwind v4 renamed. Left alone, they pile up in the Problems panel and bury real issues underneath dozens of harmless lint hints.
+
+This extension rewrites those outdated-but-valid classes to their canonical v4 names, so the noise disappears and only genuine problems remain visible.
+
+### What it doesn't do
+
+- Doesn't validate that a class name is spelled correctly or exists in Tailwind
+- Doesn't check JSX/HTML syntax
+- Doesn't touch type errors, logic errors, or any other diagnostic category
+
+It only rewrites classes that have a canonical replacement.
+
 ## Features
 
 - ⚡ **Auto Canonicalization**: Instantly transforms arbitrary/deprecated Tailwind v4 classes into canonical classes (e.g., `top-[68px]` → `top-17`, `w-[64px]` → `w-16`).

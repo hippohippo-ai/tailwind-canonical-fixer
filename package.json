@@ -1,9 +1,9 @@
 {
-  "name": "tailwind-canonical-fixer",
-  "displayName": "Tailwind Canonical Fixer",
+  "name": "tailwind-canonical-silencer",
+  "displayName": "Tailwind Canonical Silencer",
   "publisher": "hippohippo-ai",
-  "description": "Automatically fix Tailwind CSS v4 canonical class suggestions.",
-  "version": "1.0.2",
+  "description": "Silence Tailwind CSS IntelliSense's canonical-class warnings by rewriting deprecated-but-valid v4 class names — not a syntax/error fixer.",
+  "version": "1.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/hippohippo-ai/tailwind-canonical-fixer.git"
