@@ -20,22 +20,6 @@ const STATIC_CANONICAL_MAP: Record<string, string> = {
     'bg-gradient-to-bl': 'bg-linear-to-bl',
     'bg-gradient-to-l': 'bg-linear-to-l',
     'bg-gradient-to-tl': 'bg-linear-to-tl',
-    
-    // shadow / blur / rounded 整体改名(v4 把整套 scale 平移了一格)
-    'shadow-sm': 'shadow-xs',
-    'shadow': 'shadow-sm',
-    'drop-shadow-sm': 'drop-shadow-xs',
-    'drop-shadow': 'drop-shadow-sm',
-    'blur-sm': 'blur-xs',
-    'blur': 'blur-sm',
-    'backdrop-blur-sm': 'backdrop-blur-xs',
-    'backdrop-blur': 'backdrop-blur-sm',
-    'rounded-sm': 'rounded-xs',
-    'rounded': 'rounded-sm',
-
-    // outline / ring
-    'outline-none': 'outline-hidden',
-    'ring': 'ring-3',
 };
 
 const DEFAULT_TAILWIND_SCALES: Record<string, Set<string>> = {
